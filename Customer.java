@@ -223,18 +223,29 @@ public class Customer extends Company implements Person{
 	* That method prints furniture list
 	*/
 	public void seeProductList(){
+		int count = 0;
 		for(int i=0; i<numberOfFurnitures; i++){
 			if(furnitureList[i].getNumberInStock() > 0){
-				System.out.println("Product: " + furnitureList[i].getProduct() + ".\n");
-				System.out.println("Model: " + furnitureList[i].getModel() + ".\n");
-				System.out.println("Color: " + furnitureList[i].getColor() + ".\n");
-				System.out.println("Number: " + furnitureList[i].getNumberInStock() + ".\n");
+				System.out.println("Product: " + furnitureList[i].getProduct());
+				System.out.println("Model: " + furnitureList[i].getModel());
+				System.out.println("Color: " + furnitureList[i].getColor());
+				System.out.println("Number in stock: " + furnitureList[i].getNumberInStock());
+				System.out.println("Branch: " + furnitureList[i].getWhichBranch());
 				System.out.println("\n");
 			}
 			else{
-				System.out.println("All stock is empty now.\n");
+				System.out.println("***SOLD OUT***");
+				System.out.println("Product: " + furnitureList[i].getProduct());
+				System.out.println("Model: " + furnitureList[i].getModel());
+				System.out.println("Color: " + furnitureList[i].getColor());
+				System.out.println("Number in stock: " + furnitureList[i].getNumberInStock());
+				System.out.println("Branch: " + furnitureList[i].getWhichBranch());
+				System.out.println("\n");
+				count += 1;
 			}
 		}
+		if(count == numberOfFurnitures)
+			System.out.println("Sorry, all stock is empty now");
 	}
 
 	/**
@@ -299,18 +310,25 @@ public class Customer extends Company implements Person{
 	* @return boolean boolean value that means bought or not
 	*/
 	public boolean buy(Furniture fur){
-		int check = 0;
+		int check = 0, check2 = 0;
 		if(numberOfFurnitures > 0){	
 			for(int i=0; i<numberOfFurnitures; i++){
 				if(furnitureList[i].getProduct().equals(fur.getProduct()) && furnitureList[i].getModel().equals(fur.getModel())) {
+					if(furnitureList[i].getNumberInStock() == 0){
+						check2 = 1;
+					}
 					check = 1;
 					break;				
 				}
 			}
 		}
-		if(check == 1){
+		if(check == 1 && check2 == 0){
 			this.setPreviousOrders(fur);
 			return true;
+		}
+		else if(check == 1 && check2 == 1){
+			System.out.println("Sorry, we don't have enough number of this product in our stock.\n");
+			return false;
 		}
 		else{
 			System.out.println("Sorry, we couldn't find product you wanted.\n");

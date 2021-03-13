@@ -178,7 +178,7 @@ public class Administrator extends Company implements Person{
 
 			branchList[branchId-1].employeeList[new_emp_index].setBranchId(branchList[branchId-1].getBranchId());
 			branchList[branchId-1].employeeList[new_emp_index].setBranchName(branchList[branchId-1].getBranchName());
-			System.out.println(newEmployee.getName() + " " + newEmployee.getSurname() + " is added to " + branchList[branchId-1].getBranchName() + " " + branchList[branchId-1].getBranchName() + " \n");
+			System.out.println(newEmployee.getName() + " " + newEmployee.getSurname() + " is added to " + branchList[branchId-1].getBranchName() + ".\n");
 		}
 		if(check == 0)
 			System.out.println("Branch " + branchId + " is not found in the company.\n");
@@ -267,7 +267,6 @@ public class Administrator extends Company implements Person{
 			}
 			if(check != -1){
 				furnitureList[check].setNumberInStock(furnitureList[check].getNumberInStock() + numberToAdd);
-				numberOfFurnitures += 1;
 			}
 			else{
 				furnitureList[numberOfFurnitures] = f;

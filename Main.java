@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 /**
 *@author Canberk Arici
@@ -68,12 +69,25 @@ public class Main{
             System.out.println("3- Login as Customer");
             System.out.println("0- EXIT ");
             System.out.println("Please enter your choice:");
-            exit = input.nextInt();
+            try{
+            	exit = input.nextInt();
+            }catch(InputMismatchException e){
+		    	input.next();
+		    	System.out.println("Please try with a number!!");
+    			break;
+			}
 
             while(exit > 3 || exit < 0){
             	System.out.println("Invalid choise!");
                 System.out.println("Please enter valid choice:");
-                exit = input.nextInt();
+                try{	
+                	exit = input.nextInt();
+                }
+				catch(InputMismatchException e){
+		        	input.next();
+		        	System.out.println("Please try with a number!!");
+		        	break;
+				}
             }
 
             switch(exit){
@@ -86,10 +100,16 @@ public class Main{
                     System.out.println("5- See all branches, employees and customers");
                     System.out.println("6- Query products that need to be supplied");
                     System.out.println("\nPlease enter your choice, input will be requested until input is valid: ");
-                    do{
-                		exit = input.nextInt();
-                	}while(exit == 0);
-
+	                try{ 
+	                    do{
+	                		exit = input.nextInt();
+	                	}while(exit == 0);
+	                }
+					catch(InputMismatchException e){
+					    	input.next();
+					    	System.out.println("Please try with a number!!");
+					    	break;
+				    }
                     switch(exit){
                     	case 1:
                     		System.out.println("Please enter branch name that you want to add: ");
@@ -107,10 +127,16 @@ public class Main{
                         		break;
                         	}
                         	System.out.println("Enter \"branch id\" that you want to remove, input will be requested until input is valid: ");
-                        	do{
-                        		exit = input.nextInt();
-                        	}while(exit == 0);
-                        	
+	                        try{
+	                        	do{
+	                        		exit = input.nextInt();
+	                        	}while(exit == 0);
+                        	}
+    						catch(InputMismatchException e){
+					    		input.next();
+					    		System.out.println("Please try with a number!!");
+					    		break;
+				    		}
                         	int index = -1;
                         	if(company.getNumberOfBranches() > 0){
 	                        	for(int i=0; i<company.getNumberOfBranches(); i++){
@@ -150,7 +176,6 @@ public class Main{
                         	
                         	System.out.println("Please enter employee surname: ");
                             employeeSurname = inputString.nextLine();
-	                        				System.out.println(namee);
                             
                             int employeeId = company.getNumberOfEmployees() + 1;
                             BranchEmployee newEmployee = new BranchEmployee(namee, index3, employeeName, employeeSurname, employeeId);
@@ -172,7 +197,16 @@ public class Main{
 							while(checkBranch == false){
 	                        	System.out.println("\nPlease enter \"branch id\" that you want to remove a branch employee:");
 	                        	System.out.println("Input will be requested until input is valid");
-								brId = input.nextInt();
+								
+	                        	try{
+									brId = input.nextInt();
+								}
+								catch(InputMismatchException e){
+							    	input.next();
+							    	System.out.println("Please try with a number!!");
+					    			break;
+				    			}
+
 								for(int i=0; i<company.getNumberOfBranches(); i++){
 									if(company.getBranchList()[i].getBranchId() == brId)
 										checkBranch = true;
@@ -182,9 +216,16 @@ public class Main{
                         	System.out.println("Enter \"employee id\" that you want to remove:");
                         	System.out.println("Input will be requested until input is valid");
 
-                        	do{
-                        		exit = input.nextInt();
-                        	}while(exit == 0);
+	                        try{
+	                        	do{
+	                        		exit = input.nextInt();
+	                        	}while(exit == 0);
+	                        }
+	                        catch(InputMismatchException e){
+							    	input.next();
+							    	System.out.println("Please try with a number!!");
+					    			break;
+			    			}
 
                         	int index1 = -1;
                         	if(company.getNumberOfEmployees() > 0){
@@ -227,10 +268,16 @@ public class Main{
                     System.out.println("4- View previous orders of a customer.");
                     System.out.println("5- Make sale.");
                     System.out.println("Enter your choice, input will be requested until input is valid: ");
-                    do{
-                		exit = input.nextInt();
-                	}while(exit == 0);
-
+	                try{
+	                    do{
+	                		exit = input.nextInt();
+	                	}while(exit == 0);
+	                }
+					catch(InputMismatchException e){
+				    	input.next();
+				    	System.out.println("Please try with a number!!");
+				    	break;
+				    }
                     switch(exit){
                     	case 1:
                     		company.getEmployeeList()[0].seeProductList();
@@ -252,10 +299,16 @@ public class Main{
 	                    		color = inputString.nextLine();
 	                    		System.out.println("Please enter how many you want to add, input will be requested until input is valid: ");
 	                    		
-	                    		do{
-			                		numberToAdd = input.nextInt();
-			                	}while(numberToAdd == 0);
-			                	
+	                    		try{
+		                    		do{
+				                		numberToAdd = input.nextInt();
+				                	}while(numberToAdd == 0);
+			                	}
+        						catch(InputMismatchException e){
+							    	input.next();
+							    	System.out.println("Please try with a number!!");
+					    			break;
+				    			}
 			                	for(int i=0; i<company.getNumberOfFurnitures(); i++){
 			                		if(company.getFurnitureList()[i].getProduct().equals(productName) && company.getFurnitureList()[i].getModel().equals(modelName)){
 			                			control = i;
@@ -280,10 +333,18 @@ public class Main{
 	                    		System.out.println("Please enter color: ");
 	                    		color = inputString.nextLine();
 	                    		System.out.println("Please enter how many you want to delete, input will be requested until input is not 0: ");
-	                    		do{	
-	                    			numToDelete = input.nextInt();
-	                    		}while(numToDelete == 0);
-			                	
+		                    	
+		                    	try{
+		                    		do{	
+		                    			numToDelete = input.nextInt();
+		                    		}while(numToDelete == 0);
+			                	}
+			                	catch(InputMismatchException e){
+							    	input.next();
+							    	System.out.println("Please try with a number!!");
+					    			break;
+				    			}
+
 			                	for(int i=0; i<company.getNumberOfFurnitures(); i++){
 			                		if(company.getFurnitureList()[i].getProduct().equals(productName) && company.getFurnitureList()[i].getModel().equals(modelName)){
 			                			control1 = i;
@@ -299,11 +360,18 @@ public class Main{
                     		company.showCustomers();
                     		System.out.println("Please select \"customer id\" that you want to see its previous orders: ");
                     		System.out.println("Input will be requested until input is valid: ");
-                    		int customersId;
-                    		do{
-                        		customersId = input.nextInt();
-                        	}while(customersId == 0);
-							company.getEmployeeList()[0].viewPreviousOrders(customersId);
+                    		int customersNum = 0;
+	                    	try{	
+	                    		do{
+	                        		customersNum = input.nextInt();
+	                        	}while(customersNum == 0);
+	                        }
+	                        catch(InputMismatchException e){
+	                        	input.next();
+	                        	System.out.println("Please try with a number!!");
+	                        	break;
+	                        }
+							company.getEmployeeList()[0].viewPreviousOrders(customersNum);
 							break;
 
 						case 5:
@@ -316,7 +384,16 @@ public class Main{
 								while(checkBranch == false){
 		                        	System.out.println("Please select \"customer number\" that you want to make sale: ");
 									System.out.println("Input will be requested until input is valid:  ");
-									exit = input.nextInt();
+									
+									try{
+										exit = input.nextInt();
+									}
+									catch(InputMismatchException e){
+								    	input.next();
+								    	System.out.println("Please try with a number!!");
+						    			break;
+					    			}
+
 									for(int i=0; i<company.getNumberOfBranches(); i++){
 										if(company.getCustomerList()[i].getCustomerNumber() == exit){
 											checkBranch = true;
@@ -348,6 +425,17 @@ public class Main{
 					                	}
 		                    	}
 								company.getEmployeeList()[0].makeSale(company.getCustomerList()[customersId2-1], company.getFurnitureList()[control2]);
+								if(company.getFurnitureList()[control2].getNumberInStock()-1 == 0 ){
+									company.getFurnitureList()[control2].setNumberInStock(0);
+								}
+								else if(company.getFurnitureList()[control2].getNumberInStock() == 0){
+									System.out.println("Manager informed, this product will be supplied soon.\n");
+									company.getAdmin().addProduct(company.getFurnitureList()[control2], 5);
+								}
+								else{
+									company.getFurnitureList()[control2].setNumberInStock(company.getFurnitureList()[control2].getNumberInStock()-1);
+								}
+								
 								break;
 							}
 							else
@@ -363,9 +451,16 @@ public class Main{
                     System.out.println("4- Buy");
                     System.out.println("5- View previous orders.");
                     System.out.println("Enter your choice, input will be requested until input is valid:");
-                    do{
-                		exit = input.nextInt();
-                	}while(exit == 0);
+	               try{
+	                    do{
+	                		exit = input.nextInt();
+	                	}while(exit == 0);
+	                }
+	                catch(InputMismatchException e){
+							    	input.next();
+							    	System.out.println("Please try with a number!!");
+					    			break;
+	    			}
 
                 	switch(exit){
                 		case 1:
@@ -386,13 +481,17 @@ public class Main{
 		    				}
 
 		    				if(check4case == false){
-		        				System.out.println("\nThere is no customer with given email or password\n");
+		        				System.out.println("\nThere is no customer with given email or password.\n");
 		        				break;
 		    				}
 		    				break;
 
                 		case 2:
-                			company.seeProductList();
+                			if(company.getNumberOfCustomers > 0)
+                				company.getCustomerList()[0].seeProductList();
+                			else
+		        				System.out.println("\nThere is no customer for now.\n");
+
                 			break;
 
                 		case 3:
@@ -499,6 +598,7 @@ public class Main{
 		            				if(addressPh == true){
 		            					index3 = -1;
 			                        	
+			                        	company.getEmployeeList()[0].seeProductList();
 			                    		System.out.println("\nPlease enter product name you want to buy: ");
 			                    		productName2 = inputString.nextLine();
 			                    		System.out.println("Please enter model name you want to buy: ");
@@ -506,10 +606,16 @@ public class Main{
 			                    		System.out.println("Please enter color: ");
 			                    		color2 = inputString.nextLine();
 		                    			System.out.println("Please enter how many you want, input will be requested until input is valid: ");
-			                    		do{
-			                    			howMany = input.nextInt();
-			                    		}while(howMany<0);
-					                	
+				                    	try{	
+				                    		do{
+				                    			howMany = input.nextInt();
+				                    		}while(howMany<0);
+					                	}
+					                	catch(InputMismatchException e){
+									    	input.next();
+									    	System.out.println("Please try with a number!!");
+							    			break;
+						    			}
 					                	for(int i=0; i<company.getNumberOfFurnitures(); i++){
 					                		if(company.getFurnitureList()[i].getProduct().equals(productName2) && company.getFurnitureList()[i].getModel().equals(modelName2)){
 					                			index3 = i;
@@ -518,9 +624,25 @@ public class Main{
 						                	}
 				                    	
 				                    	if(index3 != -1){
-				                    		if(company.getFurnitureList()[index3].getNumberInStock() > howMany){	
-				                    			company.getCustomerList()[company.getNumberOfCustomers()-1].buy(company.getFurnitureList()[index3]);
-			                					System.out.println("\nSale is done.");
+				                    		if(company.getFurnitureList()[index3].getNumberInStock() >= howMany){	
+				                    			boolean checkBuy = company.getCustomerList()[company.getNumberOfCustomers()-1].buy(company.getFurnitureList()[index3]);
+				                    			
+				                    			if(checkBuy == true){
+			                						
+			                						System.out.println("\nSale is done.");
+
+				                					if(company.getFurnitureList()[index3].getNumberInStock()-1 == 0 ){
+														company.getFurnitureList()[index3].setNumberInStock(0);
+													}
+													else if(company.getFurnitureList()[index3].getNumberInStock() == 0){
+														System.out.println("Manager informed, this product will be supplied soon.\n");
+														company.getAdmin().addProduct(company.getFurnitureList()[index3], 5);
+													}
+													else{
+														company.getFurnitureList()[index3].setNumberInStock(company.getFurnitureList()[index3].getNumberInStock()-1);
+													}	
+
+			                					}
 				                    			break;
 				                    		}
 					                    	else{
@@ -539,6 +661,7 @@ public class Main{
 		            			}
 		            			else{
 		            				index3 = -1;
+		            				company.getEmployeeList()[0].seeProductList();
 		                    		System.out.println("\nPlease enter product name you want to buy: ");
 		                    		productName2 = inputString.nextLine();
 		                    		System.out.println("Please enter model name you want to buy: ");
@@ -546,10 +669,16 @@ public class Main{
 		                    		System.out.println("Please enter color: ");
 		                    		color2 = inputString.nextLine();
 		                    		System.out.println("Please enter how many you want, input will be requested until input is valid: ");
-		                    		do{
-		                    			howMany = input.nextInt();
-		                    		}while(howMany<0);
-				                	
+			                    	try{
+			                    		do{
+			                    			howMany = input.nextInt();
+			                    		}while(howMany<0);
+				                	}
+				                	catch(InputMismatchException e){
+								    	input.next();
+								    	System.out.println("Please try with a number!!");
+						    			break;
+					    			}
 				                	for(int i=0; i<company.getNumberOfFurnitures(); i++){
 				                		if(company.getFurnitureList()[i].getProduct().equals(productName2) && company.getFurnitureList()[i].getModel().equals(modelName2)){
 				                			index3 = i;
@@ -559,12 +688,24 @@ public class Main{
 			                    	
 			                    	if(index3 != -1){
 				                    	if(company.getFurnitureList()[index3].getNumberInStock() >= howMany){	
-				                    		company.getCustomerList()[company.getNumberOfCustomers()-1].buy(company.getFurnitureList()[index3]);
-				                    		System.out.println("\nSale is done.");
+				                    		boolean checkBuy2 = company.getCustomerList()[company.getNumberOfCustomers()-1].buy(company.getFurnitureList()[index3]);
+					                    	if(checkBuy2 == true){	
+					                    		System.out.println("\nSale is done.");
+
+												if(company.getFurnitureList()[index3].getNumberInStock()-1 == 0 ){
+													company.getFurnitureList()[index3].setNumberInStock(0);
+												}
+												else if(company.getFurnitureList()[index3].getNumberInStock() == 0){
+													System.out.println("Manager informed, this product will be supplied soon.\n");
+													company.getAdmin().addProduct(company.getFurnitureList()[index3], 5);
+												}
+												else{
+													company.getFurnitureList()[index3].setNumberInStock(company.getFurnitureList()[index3].getNumberInStock()-1);
+												}	
+											}
 				                    		break;
 				                    	}
 				                    	else{
-				                    		/* Inform Manager */
 		                					System.out.println("\nSorry, we could not find the number of products you wanted.");
 		                					System.out.println("Manager informed, this product will be supplied soon.\n");
 		                					company.getAdmin().addProduct(company.getFurnitureList()[index3], howMany+5);

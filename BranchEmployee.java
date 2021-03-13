@@ -119,7 +119,7 @@ public class BranchEmployee extends Branch implements Person {
 		if(check == true)
 			System.out.println("Sale is done.\n");
 		else
-			System.out.println("Sorry, we couldn't find product you wanted.\n");
+			System.out.println("Sale is not successful.\n");
 	}
 
 	/**
@@ -127,27 +127,28 @@ public class BranchEmployee extends Branch implements Person {
 	*/
 	public void seeProductList(){
 		int count = 0;
-		if(numberOfFurnitures > 0){	
-			for(int i=0; i<numberOfFurnitures; i++){
-				if(furnitureList[i].getNumberInStock() > 0){
-					System.out.println("Product: " + furnitureList[i].getProduct());
-					System.out.println("Model: " + furnitureList[i].getModel());
-					System.out.println("Color: " + furnitureList[i].getColor());
-					System.out.println("Number in stock: " + furnitureList[i].getNumberInStock());
-					System.out.println("Branch: " + furnitureList[i].getWhichBranch());
-					System.out.println("\n");
-				}
-				else{
-					count += 1;
-				}
+		for(int i=0; i<numberOfFurnitures; i++){
+			if(furnitureList[i].getNumberInStock() > 0){
+				System.out.println("Product: " + furnitureList[i].getProduct());
+				System.out.println("Model: " + furnitureList[i].getModel());
+				System.out.println("Color: " + furnitureList[i].getColor());
+				System.out.println("Number in stock: " + furnitureList[i].getNumberInStock());
+				System.out.println("Branch: " + furnitureList[i].getWhichBranch());
+				System.out.println("\n");
 			}
-			if(count == numberOfFurnitures){
-				System.out.println("All stock is empty now.\n");
+			else{
+				System.out.println("***SOLD OUT***");
+				System.out.println("Product: " + furnitureList[i].getProduct());
+				System.out.println("Model: " + furnitureList[i].getModel());
+				System.out.println("Color: " + furnitureList[i].getColor());
+				System.out.println("Number in stock: " + furnitureList[i].getNumberInStock());
+				System.out.println("Branch: " + furnitureList[i].getWhichBranch());
+				System.out.println("\n");
+				count += 1;
 			}
 		}
-		else{
-			System.out.println("There is furniture now.\n");
-			}
+		if(count == numberOfFurnitures)
+			System.out.println("Sorry, all stock is empty now");
 	}
 
 	/**
